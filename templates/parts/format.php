@@ -3,6 +3,7 @@
  * The default template part for displaying content.
  *
  * @package nowell
+ * @subpackage BlogramaFM
  */
 ?>
 
@@ -58,9 +59,6 @@
                 ?>
 
                 <a href="<?php echo esc_url($archive_link); ?>">
-                    <?php //nowell_icon('chevron-left');  ?>
-
-                    <?php // echo esc_html($archive_title);  ?>
                 </a>
             </h4>
 
@@ -68,5 +66,5 @@
 
             <?php get_template_part('templates/parts/entry-meta', get_post_format()); ?>
         </div>
-    </div><!-- .primary-secondary-area -->
+    </div>
 </article>

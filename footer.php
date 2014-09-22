@@ -33,6 +33,7 @@
             <li>&copy; 2012 - <?php echo date('Y'); ?><strong> Blograma FM</strong> Todos los derechos reservados. </li>
 
         </ul>
+		
         <?php wp_nav_menu(array('menu'=>'impresum')); ?>
     </div>
 </footer>

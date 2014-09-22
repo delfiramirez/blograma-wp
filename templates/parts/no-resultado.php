@@ -3,6 +3,7 @@
  * The template part for displaying a message that posts cannot be found.
  *
  * @package nowell
+ * @subpackage BlogramaFM
  */
 ?>
 
@@ -14,7 +15,7 @@
     <?php if (is_home() && current_user_can('publish_posts')) : ?>
 
         <p>
-            <?php printf(__('Ready to publish your first post? <a href="%1$s">Get started here</a>.', 'nowell'), esc_url(admin_url('post-new.php'))); ?>
+            <?php printf(__('Publicamos? <a href="%1$s">Empieza aqui</a>.', 'nowell'), esc_url(admin_url('post-new.php'))); ?>
         </p>
 
     <?php elseif (is_search()) : ?>
