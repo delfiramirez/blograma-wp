@@ -6,13 +6,11 @@
 
 function login_enqueue_scripts () {
 
- echo '
-
-<div class="background-cover"></div>
+ echo '<div class="background-cover"></div>
 
 <style type="text/css" media "screen">
 .background-cover {
-background: url(https://blograma.fm/web//public/images//2014/08/WPfondo.jpg) no-repeat center center fixed;
+background: url(public/images//2014/08/WPfondo.jpg) no-repeat center center fixed;
 -webkit-background-size: cover;
 -moz-background-size: cover;
 -o-background-size: cover;
@@ -45,8 +43,6 @@ box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
 -webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-
-
 .login form.header span {
 font-size: 13px;
 line-height: 16px;
@@ -74,8 +70,8 @@ box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
 -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
 -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.50);
 }
-.login form .input:hover {
 
+.login form .input:hover {
 color: #414848;
 }
 
@@ -90,9 +86,11 @@ box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
 input {
 outline: none;
 }
+
 .login form .header h1 {
 
 }
+
 a{
 padding:0;
 margin:0;
@@ -107,12 +105,12 @@ margin-bottom: 10px;
 text-align: center;
 margin-top: 15px;
 }
+
 .login h1 a {
 background-image: url(http://segonquart.net/data-fm/icons/blograma.png) !important;
 }
 
 #login_error, .login .message {
-
 display:none;
 }
 
@@ -138,7 +136,6 @@ display: block;
 float: right;
 padding: 10px;
 margin-right: 20px;
-
 background: none;
 border: none;
 cursor: pointer;
@@ -162,8 +159,6 @@ text-shadow: none!important;
 .login #nav, .login #backtoblog {
 text-shadow: none!important;
 }
-
-/* Second input field */
 
 .login form .input .password, .login form .input .pass-icon {
 margin-top: 25px;
@@ -191,15 +186,13 @@ border-bottom-left-radius: 5px;
 
 .user-icon {
 top: 0;
-background: #171717 url(images/user-icon.png) no-repeat center;
+background: #171717 url(src/images/user-icon.png) no-repeat center;
 }
 
 .pass-icon {
 top: 48px;
-background: #171717 url(images/pass-icon.png) no-repeat center;
+background: #171717 url(src/images/pass-icon.png) no-repeat center;
 }
-
-/* Animation */
 
 .input, .user-icon, .pass-icon, .button, .register {
 transition: all 0.5s;
@@ -213,8 +206,6 @@ transition: all 0.5s;
 padding: 20px 30px 30px;
 overflow: auto;
 }
-
-/* Login button */
 
 .login form .footer .button {
 float:right;
@@ -250,7 +241,6 @@ box-shadow: inset 0 1px 6px rgba(256, 256, 256, 0.75);
 -webkit-box-shadow: inset 0 1px 6px rgba(256, 256, 256, 0.75);
 }
 
-/* Register button */
 
 .login form .footer .register {
 display: block;
@@ -296,7 +286,7 @@ padding: 0 30px 15px;
 }
 
 .error-login, .error-password {
-background: url("images/error.png") no-repeat scroll center center #171717;
+background: url(src/images/error.png) no-repeat scroll center center #171717;
 left: -49px;
 }
 
@@ -304,10 +294,7 @@ left: -49px;
 margin-bottom: 20px;
 }
 
-
-</style>
-
-';
+</style>';
 }
 
 add_action('login_enqueue_scripts', 'login_enqueue_scripts');
@@ -384,22 +371,20 @@ function blograma_display () {
 }
 
 add_action('wp_head', 'blograma_display');
+
 // ----------------------------
-// --  CLEAR ADMIN BAR  --
+// --  ADMIN: CLEAR ADMIN BAR  --
 // ----------------------------
 add_action('wp_before_admin_bar_render', 'blograma_admin_bar');
 
 function blograma_admin_bar () {
  global $wp_admin_bar;
-//$wp_admin_bar->remove_node('wp-logo');
+
  $wp_admin_bar->remove_node('about');
  $wp_admin_bar->remove_node('wporg');
-// $wp_admin_bar->remove_node('documentation');
-//$wp_admin_bar->remove_node('support-forums');
  $wp_admin_bar->remove_node('feedback');
  $wp_admin_bar->remove_node('view-site');
  $wp_admin_bar->remove_menu('comments');
-//$wp_admin_bar->remove_menu('updates');
  $wp_admin_bar->remove_menu('new-content');
  $wp_admin_bar->remove_menu('user-info');
  $wp_admin_bar->remove_menu('edit-profile');
@@ -434,8 +419,9 @@ function blograma_complete_version_removal () {
 
 add_filter('the_generator', 'blograma_complete_version_removal');
 add_filter('the_content_more_link', 'remove_more_jump_link');
+
 // --------------------------------------------
-// --  REMOVE AUTHOR COLUMN FROM PAGES LIST  --
+// ADMIN:  REMOVE AUTHOR COLUMN FROM PAGES LIST  --
 // --------------------------------------------
 remove_action('wp_head', 'wp_generator');
 add_filter('login_errors', create_function('$a', "return null;"));
@@ -451,7 +437,7 @@ function blograma_meta_boxes () {
 }
 
 // --------------------------------------------
-// ADMIN:  emove admin name in comments class
+// ADMIN:  Remove admin name in comments class
 // --------------------------------------------
 function remove_comment_author_class ($classes) {
  foreach ($classes as $key=> $class) {
@@ -492,14 +478,14 @@ add_action('admin_menu', 'remove_admin_menu_items');
 // --------------------------------------------
 // -- ADMIN // force one-column dashboard
 // --------------------------------------------
-function shapeSpace_screen_layout_columns ($columns) {
+function blograma_screen_layout_columns ($columns) {
  $columns['dashboard']=1;
  return $columns;
 }
 
-add_filter('screen_layout_columns', 'shapeSpace_screen_layout_columns');
+add_filter('screen_layout_columns', 'blograma_screen_layout_columns');
 
-function shapeSpace_screen_layout_dashboard () {
+function blograma_screen_layout_dashboard () {
  return 1;
 }
 
@@ -520,15 +506,6 @@ function blograma_screen_layout_post () {
 }
 
 add_filter('get_user_option_screen_layout_post', 'blograma_screen_layout_post');
-
-unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
-unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
-unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
-unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins']);
-unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
-unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
-unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
-unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
 
 // --------------------------------------------
 // --  ADMIN: REMOVE DASHBOARD WIDGETS --
@@ -561,7 +538,7 @@ function blograma_remove_version () {
 add_filter('admin_menu', 'blograma_remove_version');
 
 // --------------------------------------------
-// --  REPLACE HOWDY --
+// ADMIN: REPLACE HOWDY --
 // --------------------------------------------
 function replace_howdy ($wp_admin_bar) {
  $my_account=$wp_admin_bar->get_node('my-account');
@@ -583,7 +560,7 @@ define('JETPACK__API_VERSION', 1);
 remove_action('wp_head', 'jetpack_og_tags');
 
 // ----------------------------
-// --  CLEAR SLIMPACK UNNEEDED  --
+// ADMIN:  CLEAR SLIMPACK UNNEEDED  --
 // ----------------------------
 function remove_jetpack_styles () {
  wp_deregister_style('AtD_style');
@@ -613,6 +590,10 @@ function remove_jetpack_scripts () {
 
 add_action('wp_print_scripts', 'remove_jetpack_scripts', 100);
 
+// ----------------------------
+// --  CLEANER  --
+// ----------------------------
+
 function clean_header () {
  wp_deregister_script('comment-reply');
 }
@@ -630,6 +611,18 @@ function bfm_headlink () {
  remove_action('wp_head', 'wlwmanifest_link');
 }
 
+unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_right_now']);
+unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_recent_comments']);
+unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_incoming_links']);
+unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_plugins']);
+unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
+unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
+unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
+
+// ----------------------------
+// --  CUSTOM FILTER BODY TYPES  --
+// ----------------------------
 add_filter('body_class', 'blograma_body_class', 10, 2);
 
 function blograma_body_class ($wp_classes, $extra_classes) {
