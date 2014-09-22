@@ -1,5 +1,6 @@
 <?php
 include 'templates/custom-admin-function.php';
+include 'templates/custom-admin-cssLogin.php';
 
 
 load_theme_textdomain( 'BlogramaFM', get_template_directory() . '/languages' );
@@ -11,21 +12,21 @@ require_once( $locale_file );
 
 function blograma_noticias_taxonomy () {
  $labels =array(
-     'name'                      =>_x('Noticias', 'Taxonomy General Name', 'nowell'),
-     'singular_name'             =>_x('Noticia', 'Taxonomy Singular Name', 'nowell'),
-     'menu_name'                 =>__('Taxonomia Noticia', 'nowell'),
-     'all_items'                 =>__('All Items', 'nowell'),
-     'parent_item'               =>__('Parent Item', 'nowell'),
-     'parent_item_colon'         =>__('Parent Item:', 'nowell'),
-     'new_item_name'             =>__('New Item Name', 'nowell'),
-     'add_new_item'              =>__('Add New Item', 'nowell'),
-     'edit_item'                 =>__('Edit Item', 'nowell'),
-     'update_item'               =>__('Update Item', 'nowell'),
-     'separate_items_with_commas'=>__('Separate items with commas', 'nowell'),
-     'search_items'              =>__('Search Items', 'nowell'),
-     'add_or_remove_items'       =>__('Add or remove items', 'nowell'),
-     'choose_from_most_used'     =>__('Choose from the most used items', 'nowell'),
-     'not_found'                 =>__('Not Found', 'nowell'),
+     'name'                      =>_x('Noticias', 'Taxonomy General Name', 'BlogramaFM'),
+     'singular_name'             =>_x('Noticia', 'Taxonomy Singular Name', 'BlogramaFM'),
+     'menu_name'                 =>__('Taxonomia Noticia', 'BlogramaFM'),
+     'all_items'                 =>__('All Items', 'BlogramaFM'),
+     'parent_item'               =>__('Parent Item', 'BlogramaFM'),
+     'parent_item_colon'         =>__('Parent Item:', 'BlogramaFM'),
+     'new_item_name'             =>__('New Item Name', 'BlogramaFM'),
+     'add_new_item'              =>__('Add New Item', 'BlogramaFM'),
+     'edit_item'                 =>__('Edit Item', 'BlogramaFM'),
+     'update_item'               =>__('Update Item', 'BlogramaFM'),
+     'separate_items_with_commas'=>__('Separate items with commas', 'BlogramaFM'),
+     'search_items'              =>__('Search Items', 'BlogramaFM'),
+     'add_or_remove_items'       =>__('Add or remove items', 'BlogramaFM'),
+     'choose_from_most_used'     =>__('Choose from the most used items', 'BlogramaFM'),
+     'not_found'                 =>__('Not Found', 'BlogramaFM'),
  );
  $rewrite=array(
      'slug'        =>'noticias',
@@ -49,23 +50,23 @@ add_action('init', 'blograma_noticias_taxonomy', 0);
 
 function blograma_add_noticias () {
  $labels=array(
-     'name'              =>_x('Noticias', 'Post Type General Name', 'nowell'),
-     'singular_name'     =>_x('Noticias', 'Post Type Singular Name', 'nowell'),
-     'menu_name'         =>__('Noticias FM', 'nowell'),
-     'parent_item_colon' =>__('Parent Item:', 'nowell'),
-     'add_new_item'      =>__('Add Nueva Noticia', 'nowell'),
-     'add_new'           =>__('Add New ', 'nowell'),
-     'all_items'         =>__('All Items', 'nowell'),
-     'view_item'         =>__('Ver Item', 'nowell'),
-     'edit_item'         =>__('Editar Item', 'nowell'),
-     'update_item'       =>__('Update Item', 'nowell'),
-     'search_items'      =>__('Search Item', 'nowell'),
-     'not_found'         =>__('Not found', 'nowell'),
-     'not_found_in_trash'=>__('Not found in Trash', 'nowell'),
+     'name'              =>_x('Noticias', 'Post Type General Name', 'BlogramaFM'),
+     'singular_name'     =>_x('Noticias', 'Post Type Singular Name', 'BlogramaFM'),
+     'menu_name'         =>__('Noticias FM', 'BlogramaFM'),
+     'parent_item_colon' =>__('Parent Item:', 'BlogramaFM'),
+     'add_new_item'      =>__('Add Nueva Noticia', 'BlogramaFM'),
+     'add_new'           =>__('Add New ', 'BlogramaFM'),
+     'all_items'         =>__('All Items', 'BlogramaFM'),
+     'view_item'         =>__('Ver Item', 'BlogramaFM'),
+     'edit_item'         =>__('Editar Item', 'BlogramaFM'),
+     'update_item'       =>__('Update Item', 'BlogramaFM'),
+     'search_items'      =>__('Search Item', 'BlogramaFM'),
+     'not_found'         =>__('Not found', 'BlogramaFM'),
+     'not_found_in_trash'=>__('Not found in Trash', 'BlogramaFM'),
  );
  $args  =array(
-     'label'              =>__('Noticias FM', 'nowell'),
-     'description'        =>__('Noticias', 'nowell'),
+     'label'              =>__('Noticias FM', 'BlogramaFM'),
+     'description'        =>__('Noticias', 'BlogramaFM'),
      'labels'             =>$labels,
      'singular_label'     =>__('Noticias'),
      'public'             =>true,
@@ -100,21 +101,21 @@ add_action('init', 'blograma_add_noticias');
 function blograma_libros_taxonomy () {
 
  $labels =array(
-     'name'                      =>_x('Libros', 'Taxonomy General Name', 'nowell'),
-     'singular_name'             =>_x('Libro', 'Taxonomy Singular Name', 'nowell'),
-     'menu_name'                 =>__('Taxonomia Libros', 'nowell'),
-     'all_items'                 =>__('All Items', 'nowell'),
-     'parent_item'               =>__('Parent Item', 'nowell'),
-     'parent_item_colon'         =>__('Parent Item:', 'nowell'),
-     'new_item_name'             =>__('New Item Name', 'nowell'),
-     'add_new_item'              =>__('Add New Item', 'nowell'),
-     'edit_item'                 =>__('Edit Item', 'nowell'),
-     'update_item'               =>__('Update Item', 'nowell'),
-     'separate_items_with_commas'=>__('Separate items with commas', 'nowell'),
-     'search_items'              =>__('Search Items', 'nowell'),
-     'add_or_remove_items'       =>__('Add or remove items', 'nowell'),
-     'choose_from_most_used'     =>__('Elegir los items más utilizados', 'nowell'),
-     'not_found'                 =>__('Not Found', 'nowell'),
+     'name'                      =>_x('Libros', 'Taxonomy General Name', 'BlogramaFM'),
+     'singular_name'             =>_x('Libro', 'Taxonomy Singular Name', 'BlogramaFM'),
+     'menu_name'                 =>__('Taxonomia Libros', 'BlogramaFM'),
+     'all_items'                 =>__('All Items', 'BlogramaFM'),
+     'parent_item'               =>__('Parent Item', 'BlogramaFM'),
+     'parent_item_colon'         =>__('Parent Item:', 'BlogramaFM'),
+     'new_item_name'             =>__('New Item Name', 'BlogramaFM'),
+     'add_new_item'              =>__('Add New Item', 'BlogramaFM'),
+     'edit_item'                 =>__('Edit Item', 'BlogramaFM'),
+     'update_item'               =>__('Update Item', 'BlogramaFM'),
+     'separate_items_with_commas'=>__('Separate items with commas', 'BlogramaFM'),
+     'search_items'              =>__('Search Items', 'BlogramaFM'),
+     'add_or_remove_items'       =>__('Add or remove items', 'BlogramaFM'),
+     'choose_from_most_used'     =>__('Elegir los items más utilizados', 'BlogramaFM'),
+     'not_found'                 =>__('Not Found', 'BlogramaFM'),
  );
  $rewrite=array(
      'slug'        =>'libros',
@@ -138,23 +139,23 @@ add_action('init', 'blograma_libros_taxonomy');
 
 function blograma_add_libros () {
  $labels=array(
-     'name'              =>_x('Libros', 'Post Type General Name', 'nowell'),
-     'singular_name'     =>_x('Libro', 'Post Type Singular Name', 'nowell'),
-     'menu_name'         =>__('Libros FM', 'nowell'),
-     'parent_item_colon' =>__('Parent Item:', 'nowell'),
-     'add_new_item'      =>__('Add Nuevo Libro', 'nowell'),
-     'add_new'           =>__('Add New ', 'nowell'),
-     'all_items'         =>__('All Items', 'nowell'),
-     'view_item'         =>__('Ver Item', 'nowell'),
-     'edit_item'         =>__('Editar Item', 'nowell'),
-     'update_item'       =>__('Update Item', 'nowell'),
-     'search_items'      =>__('Search Item', 'nowell'),
-     'not_found'         =>__('Not found', 'nowell'),
-     'not_found_in_trash'=>__('Not found in Trash', 'nowell'),
+     'name'              =>_x('Libros', 'Post Type General Name', 'BlogramaFM'),
+     'singular_name'     =>_x('Libro', 'Post Type Singular Name', 'BlogramaFM'),
+     'menu_name'         =>__('Libros FM', 'BlogramaFM'),
+     'parent_item_colon' =>__('Parent Item:', 'BlogramaFM'),
+     'add_new_item'      =>__('Add Nuevo Libro', 'BlogramaFM'),
+     'add_new'           =>__('Add New ', 'BlogramaFM'),
+     'all_items'         =>__('All Items', 'BlogramaFM'),
+     'view_item'         =>__('Ver Item', 'BlogramaFM'),
+     'edit_item'         =>__('Editar Item', 'BlogramaFM'),
+     'update_item'       =>__('Update Item', 'BlogramaFM'),
+     'search_items'      =>__('Search Item', 'BlogramaFM'),
+     'not_found'         =>__('Not found', 'BlogramaFM'),
+     'not_found_in_trash'=>__('Not found in Trash', 'BlogramaFM'),
  );
  $args  =array(
-     'label'              =>__('Libros', 'nowell'),
-     'description'        =>__('Libros', 'nowell'),
+     'label'              =>__('Libros', 'BlogramaFM'),
+     'description'        =>__('Libros', 'BlogramaFM'),
      'labels'             =>$labels,
      'singular_label'     =>__('Libros'),
      'public'             =>true,
@@ -237,7 +238,7 @@ function site_login_logo_url () {
 add_filter('login_headerurl', 'site_login_logo_url');
 
 function site_login_logo_url_title () {
- return 'Mouse Hover Info - BlogramaFM';
+ return 'Mouse Hover Info - BlogramaFM;
 }
 
 add_filter('login_headertitle', 'site_login_logo_url_title');
