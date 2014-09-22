@@ -3,8 +3,8 @@
  *
  * Contains  site map, categories and pages
  *
- * @package WordPress
- * @subpackage nowell
+ * @package nowell
+ * @subpackage BlogramaFM
  */
 ?>
 <?php
@@ -21,7 +21,6 @@ $pagename='SiteMap Blograma FM';
    wp_list_pages('depth=1&sort_column=menu_order&orderby=rand&order=ASC&exclude=866,792,558,8,17,9&title_li=');
    ?>
   </ul>
-
   <h2 class="article-title">Contenidos:</h2>
   <ul>
    <?php
@@ -43,16 +42,12 @@ $pagename='SiteMap Blograma FM';
     endwhile;
     ?>
    </ul>
-
   <?php } ?>
-
 
   <?php
   wp_reset_query();
   ?>
  </div>
-
 </div>
-
 
 <?php get_footer(); ?>
