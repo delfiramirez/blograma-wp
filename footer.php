@@ -5,6 +5,7 @@
  * Contains the closing of the id=content div and all content after
  *
  * @package nowell
+ * @subpackage BlogramaFM
  */
 ?>
 
@@ -14,14 +15,14 @@
     <nav class="footer-navigation" role="navigation">
         <?php if (has_nav_menu('footer')) : ?>
 
-            <?php
-            wp_nav_menu(array(
-                'theme_location' => 'footer',
-                'container'      => false,
-                'menu_class'     => 'menu menu--footer',
-                'depth'          => 1,
-            ));
-            ?>
+         <?php
+         wp_nav_menu(array(
+             'theme_location'=>'footer',
+             'container'     =>false,
+             'menu_class'    =>'menu menu--footer',
+             'depth'         =>1,
+         ));
+         ?>
 
         <?php endif; ?>
     </nav>
@@ -31,28 +32,25 @@
 
             <li>&copy; 2012 - <?php echo date('Y'); ?><strong> Blograma FM</strong> Todos los derechos reservados. </li>
 
-            <?php //echo apply_filters( 'nowell_footer_text', '' ); ?>
-
         </ul>
-        <?php wp_nav_menu(array('menu' => 'impresum')); ?>
+        <?php wp_nav_menu(array('menu'=>'impresum')); ?>
     </div>
 </footer>
 
 </div>
-
 </div>
 
 <?php wp_footer(); ?>
 <script type="text/javascript">
-    jQuery.noConflict();
-    jQuery(document).ready(function($) {
+ jQuery.noConflict();
+ jQuery(document).ready(function ($) {
 
-        $('img').each(function() {
-            $(this).removeAttr('width')
-            $(this).removeAttr('height');
-        });
+     $('img').each(function () {
+         $(this).removeAttr('width')
+         $(this).removeAttr('height');
+     });
 
-    });
+ });
 </script>
 </body>
 </html>

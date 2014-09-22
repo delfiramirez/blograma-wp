@@ -3,6 +3,7 @@
  * The Template for displaying all single posts.
  *
  * @package nowell
+ * @subpackage BlogramaFM
  */
 get_header();
 ?>
@@ -11,9 +12,9 @@ get_header();
 
     <?php while (have_posts()) : the_post(); ?>
 
-        <?php get_template_part('templates/parts/format', get_post_format()); ?>
+     <?php get_template_part('templates/parts/format', get_post_format()); ?>
 
-        <?php //comments_template( '', true );  ?>
+     <?php //comments_template( '', true );  ?>
 
     <?php endwhile; ?>
 

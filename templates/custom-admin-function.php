@@ -416,11 +416,11 @@ add_filter('screen_options_show_screen', '__return_false');
 
 function blograma_remove_submenus () {
  global $submenu;
- unset($submenu['themes.php'][5]); // Removes 'Themes'.
- unset($submenu['options-general.php'][25]); // Removes 'Discussion'.
- unset($submenu['tools.php'][5]); // Removes 'Available Tools'.
- unset($submenu['tools.php'][10]); // Removes 'Import'.
- unset($submenu['tools.php'][15]); // Removes 'Export'.
+ unset($submenu['themes.php'][5]);
+ unset($submenu['options-general.php'][25]);
+ unset($submenu['tools.php'][5]);
+ unset($submenu['tools.php'][10]);
+ unset($submenu['tools.php'][15]);
 }
 
 add_action('admin_menu', 'blograma_remove_submenus');
@@ -490,7 +490,7 @@ function remove_admin_menu_items () {
 add_action('admin_menu', 'remove_admin_menu_items');
 
 // --------------------------------------------
-// -- // force one-column dashboard
+// -- ADMIN // force one-column dashboard
 // --------------------------------------------
 function shapeSpace_screen_layout_columns ($columns) {
  $columns['dashboard']=1;
@@ -506,7 +506,7 @@ function shapeSpace_screen_layout_dashboard () {
 add_filter('get_user_option_screen_layout_dashboard', 'shapeSpace_screen_layout_dashboard');
 
 // --------------------------------------------
-// -- // force one-column posts
+// -- ADMIN// force one-column posts
 // --------------------------------------------
 function blograma_screen_layout_columns ($columns) {
  $columns['post']=1;
@@ -529,21 +529,22 @@ unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
 unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
 unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
 unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
+
 // --------------------------------------------
 // --  ADMIN: REMOVE DASHBOARD WIDGETS --
 // --------------------------------------------
-function remove_dashboard_meta() {
-        remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_plugins', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_primary', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_secondary', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_incoming_links', 'dashboard', 'normal' );
-       // remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' );
-        //remove_meta_box( 'dashboard_recent_drafts', 'dashboard', 'side' );
-        remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
-        remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
+function remove_dashboard_meta () {
+ remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal');
+ remove_meta_box('dashboard_plugins', 'dashboard', 'normal');
+ remove_meta_box('dashboard_primary', 'dashboard', 'normal');
+ remove_meta_box('dashboard_secondary', 'dashboard', 'normal');
+ remove_meta_box('dashboard_incoming_links', 'dashboard', 'normal');
+ remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+ remove_meta_box('dashboard_right_now', 'dashboard', 'normal');
 }
-add_action( 'admin_init', 'remove_dashboard_meta' );
+
+add_action('admin_init', 'remove_dashboard_meta');
+
 // --------------------------------------------
 // --  ADMIN: MOODIFY FOOTER ADMIN  --
 // --------------------------------------------
@@ -617,23 +618,21 @@ function clean_header () {
 }
 
 add_action('init', 'clean_header');
-remove_action('wp_head', 'wp_generator');
-remove_action('wp_head', 'rsd_link');
-remove_action('wp_head', 'wp_shortlink_wp_head');
-remove_action('wp_head', 'feed_links_extra', 3);
-remove_action('wp_head', 'feed_links', 2);
-remove_action('wp_head', 'wlwmanifest_link');
-
 add_action('init', 'remheadlink');
 
-function remheadlink () {
+function bfm_headlink () {
  remove_action('wp_head', 'rsd_link');
+ remove_action('wp_head', 'wlwmanifest_link');
+ remove_action('wp_head', 'wp_generator');
+ remove_action('wp_head', 'wp_shortlink_wp_head');
+ remove_action('wp_head', 'feed_links_extra', 3);
+ remove_action('wp_head', 'feed_links', 2);
  remove_action('wp_head', 'wlwmanifest_link');
 }
 
-add_filter('body_class', 'wps_body_class', 10, 2);
+add_filter('body_class', 'blograma_body_class', 10, 2);
 
-function wps_body_class ($wp_classes, $extra_classes) {
+function blograma_body_class ($wp_classes, $extra_classes) {
 
  $whitelist =array('custom-background', 'content-left', 'has-sidebar', 'custom-background--full');
  $wp_classes=array_intersect($wp_classes, $whitelist);
@@ -642,6 +641,9 @@ function wps_body_class ($wp_classes, $extra_classes) {
 
 add_filter('pre_get_posts', 'namespace_add_custom_types');
 
+// ----------------------------
+// --  CUSTOM FILTER POST TYPES  --
+// ----------------------------
 function namespace_add_custom_types ($query) {
  if (is_category()||is_tag()&&empty($query->query_vars['suppress_filters'])){
   $query->set('post_type', array(

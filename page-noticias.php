@@ -6,6 +6,7 @@
  * The template for displaying all news pages
  *
  * @package nowell
+ * @subpackage BlogramaFM
  */
 get_header();
 
@@ -27,27 +28,26 @@ $myquery      =new WP_Query(array(
 <main id="primary" class="content-area" role="main" itemprop="mainContentOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">
 
 
- <?php if ($myquery->have_posts()) : ?>
-  <header class="page-header">
-   <h1 class="page-title"><?php echo esc_html($pagename); ?></h1>
-  </header>
-  <ul class="post-list items-list">
-   <?php while ($myquery->have_posts()) : $myquery->the_post(); ?>
-    <li>
-     <?php get_template_part('archive-noticias', 'archive'); ?>
-    </li>
-    <?php
-   endwhile;
-   wp_reset_query();
-   ?>
-  </ul>
-  <?php nowell_paging_nav(); ?>
+    <?php if ($myquery->have_posts()) : ?>
+     <header class="page-header">
+         <h1 class="page-title"><?php echo esc_html($pagename); ?></h1>
+     </header>
+     <ul class="post-list items-list">
+         <?php while ($myquery->have_posts()) : $myquery->the_post(); ?>
+          <li>
+              <?php get_template_part('archive-noticias', 'archive'); ?>
+          </li>
+          <?php
+         endwhile;
+         wp_reset_query();
+         ?>
+     </ul>
+     <?php nowell_paging_nav(); ?>
 
- <?php else : ?>
-  <?php get_template_part('no-resultado', 'archive'); ?>
- <?php endif; ?>
+    <?php else : ?>
+     <?php get_template_part('no-resultado', 'archive'); ?>
+    <?php endif; ?>
 </main>
 <?php get_sidebar(); ?>
 <?php wp_reset_postdata(); ?>
-
 <?php get_footer(); ?>
