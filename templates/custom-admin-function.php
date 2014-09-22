@@ -1,14 +1,15 @@
 <?php
 
-// --------------------------------------
+// --------------------------------------------
 // --  CUSTOM ADMIN CSS LOGIN    --
-// --------------------------------------
+// --------------------------------------------
 
 function login_enqueue_scripts () {
 
  echo '<div class="background-cover"></div>
 
 <style type="text/css" media "screen">
+
 .background-cover {
 background: url(public/images//2014/08/WPfondo.jpg) no-repeat center center fixed;
 -webkit-background-size: cover;
@@ -95,6 +96,7 @@ a{
 padding:0;
 margin:0;
 }
+
 .login h1 a{
 background-image: url(http://segonquart.net/data-fm/icons/blograma.png);
 background-size: 80px 80px;
@@ -125,7 +127,6 @@ border-radius:5px;
 background: #F15A29;
 border: 1px solid #fff;
 cursor: pointer;
-
 box-shadow: inset 0 0 2px rgba(256, 256, 256, 0.75);
 -moz-box-shadow: inset 0 0 2px rgba(256, 256, 256, 0.75);
 -webkit-box-shadow: inset 0 0 2px rgba(256, 256, 256, 0.75);
@@ -218,7 +219,6 @@ border-radius:5px;
 background: #F15A29;
 border: 1px solid #fff;
 cursor: pointer;
-
 box-shadow: inset 0 0 2px rgba(256, 256, 256, 0.75);
 -moz-box-shadow: inset 0 0 2px rgba(256, 256, 256, 0.75);
 -webkit-box-shadow: inset 0 0 2px rgba(256, 256, 256, 0.75);
@@ -299,18 +299,20 @@ margin-bottom: 20px;
 
 add_action('login_enqueue_scripts', 'login_enqueue_scripts');
 
-// ----------------------------
+// --------------------------------------------
 // -- ADMIN:ADD EXCERPT TO PAGES --
-// ----------------------------
+// --------------------------------------------
+
 function blograma_excerpts_to_pages () {
  add_post_type_support('page', 'excerpt');
 }
 
 add_action('init', 'blograma_excerpts_to_pages');
 
-// ----------------------------
+// --------------------------------------------
 // --  METABOXES ADMIN FOR SEO  --
-// ----------------------------
+// --------------------------------------------
+
 function blograma_create () {
  $screens=array('post', 'page');
  foreach ($screens as $screen) {
@@ -372,9 +374,10 @@ function blograma_display () {
 
 add_action('wp_head', 'blograma_display');
 
-// ----------------------------
+// --------------------------------------------
 // --  ADMIN: CLEAR ADMIN BAR  --
-// ----------------------------
+// --------------------------------------------
+
 add_action('wp_before_admin_bar_render', 'blograma_admin_bar');
 
 function blograma_admin_bar () {
@@ -390,14 +393,15 @@ function blograma_admin_bar () {
  $wp_admin_bar->remove_menu('edit-profile');
 }
 
-// ----------------------------
+// --------------------------------------------
 // --  ADMIN :REMOVE TAB OPTIONS -
-// ----------------------------
+// --------------------------------------------
+
 add_filter('screen_options_show_screen', '__return_false');
 
-// ----------------------------
+// --------------------------------------------
 // --  REMOVE NAV SUB MENUS  --
-// ----------------------------
+// --------------------------------------------
 
 function blograma_remove_submenus () {
  global $submenu;
@@ -410,9 +414,10 @@ function blograma_remove_submenus () {
 
 add_action('admin_menu', 'blograma_remove_submenus');
 
-// ----------------------------
+// --------------------------------------------
 // ADMIN: remove version info from head and feeds  --
-// ----------------------------
+// --------------------------------------------
+
 function blograma_complete_version_removal () {
  return '';
 }
@@ -423,6 +428,7 @@ add_filter('the_content_more_link', 'remove_more_jump_link');
 // --------------------------------------------
 // ADMIN:  REMOVE AUTHOR COLUMN FROM PAGES LIST  --
 // --------------------------------------------
+
 remove_action('wp_head', 'wp_generator');
 add_filter('login_errors', create_function('$a', "return null;"));
 add_action('admin_menu', 'blograma_meta_boxes');
@@ -439,6 +445,7 @@ function blograma_meta_boxes () {
 // --------------------------------------------
 // ADMIN:  Remove admin name in comments class
 // --------------------------------------------
+
 function remove_comment_author_class ($classes) {
  foreach ($classes as $key=> $class) {
   if (strstr($class, "comment-author-")){
@@ -453,6 +460,7 @@ add_filter('comment_class', 'remove_comment_author_class');
 // --------------------------------------------
 // -- ADMIN: REMOVE MENU ITEMS
 // --------------------------------------------
+
 function remove_admin_menu_items () {
  $remove_menu_items=array(
      __('Dashboard'),
@@ -478,6 +486,7 @@ add_action('admin_menu', 'remove_admin_menu_items');
 // --------------------------------------------
 // -- ADMIN // force one-column dashboard
 // --------------------------------------------
+
 function blograma_screen_layout_columns ($columns) {
  $columns['dashboard']=1;
  return $columns;
@@ -494,6 +503,7 @@ add_filter('get_user_option_screen_layout_dashboard', 'shapeSpace_screen_layout_
 // --------------------------------------------
 // -- ADMIN// force one-column posts
 // --------------------------------------------
+
 function blograma_screen_layout_columns ($columns) {
  $columns['post']=1;
  return $columns;
@@ -525,6 +535,7 @@ add_action('admin_init', 'remove_dashboard_meta');
 // --------------------------------------------
 // --  ADMIN: MOODIFY FOOTER ADMIN  --
 // --------------------------------------------
+
 function modify_footer_admin () {
  echo "Website enhanced by <a href='http://segonquart.net'>Delfi Ramirez - Segonquart Studio</a>.";
 }
@@ -540,6 +551,7 @@ add_filter('admin_menu', 'blograma_remove_version');
 // --------------------------------------------
 // ADMIN: REPLACE HOWDY --
 // --------------------------------------------
+
 function replace_howdy ($wp_admin_bar) {
  $my_account=$wp_admin_bar->get_node('my-account');
  $newtitle  =str_replace('Howdy,', 'OHLA', $my_account->title);
@@ -550,18 +562,21 @@ function replace_howdy ($wp_admin_bar) {
 }
 
 add_filter('admin_bar_menu', 'replace_howdy', 25);
-// ----------------------------
+
+// --------------------------------------------
 // --  ENABLE SLIMPACK   --
-// ----------------------------
+// --------------------------------------------
+
 add_filter('use_default_gallery_style', '__return_null');
 add_filter('jetpack_enable_open_graph', '__return_false', 99);
 defined('JETPACK__API_BASE') or define('JETPACK__API_BASE', 'https://jetpack.wordpress.com/jetpack.');
 define('JETPACK__API_VERSION', 1);
 remove_action('wp_head', 'jetpack_og_tags');
 
-// ----------------------------
+// --------------------------------------------
 // ADMIN:  CLEAR SLIMPACK UNNEEDED  --
-// ----------------------------
+// --------------------------------------------
+
 function remove_jetpack_styles () {
  wp_deregister_style('AtD_style');
  wp_deregister_style('jetpack-carousel');
@@ -590,9 +605,9 @@ function remove_jetpack_scripts () {
 
 add_action('wp_print_scripts', 'remove_jetpack_scripts', 100);
 
-// ----------------------------
+// --------------------------------------------
 // --  CLEANER  --
-// ----------------------------
+// --------------------------------------------
 
 function clean_header () {
  wp_deregister_script('comment-reply');
@@ -620,9 +635,10 @@ unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary']);
 unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
 unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_recent_drafts']);
 
-// ----------------------------
+// --------------------------------------------
 // --  CUSTOM FILTER BODY TYPES  --
-// ----------------------------
+// --------------------------------------------
+
 add_filter('body_class', 'blograma_body_class', 10, 2);
 
 function blograma_body_class ($wp_classes, $extra_classes) {
@@ -634,9 +650,10 @@ function blograma_body_class ($wp_classes, $extra_classes) {
 
 add_filter('pre_get_posts', 'namespace_add_custom_types');
 
-// ----------------------------
+// --------------------------------------------
 // --  CUSTOM FILTER POST TYPES  --
-// ----------------------------
+// --------------------------------------------
+
 function namespace_add_custom_types ($query) {
  if (is_category()||is_tag()&&empty($query->query_vars['suppress_filters'])){
   $query->set('post_type', array(
@@ -657,5 +674,4 @@ function blograma_getarchives_where_filter ($where, $r) {
  $post_types="'".implode("' , '", $post_types)."'";
  return str_replace("post_type = 'post'", "post_type IN ( $post_types )", $where);
 }
-
 ?>
