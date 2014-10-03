@@ -1,0 +1,240 @@
+###############################################################################
+# This work is licensed under the Creative Commons Attribution 3.0 License. 
+# To view a copy of this license, visit 
+# http://creativecommons.org/licenses/by/3.0/ or send a letter to 
+# Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 
+# 94105, USA.
+# Must link to this sites to use
+# http://www.segonquart.net, http://www.askapache.com/
+#                    
+###############################################################################
+
+# secure htaccess file
+<Files .htaccess>
+ order allow,deny
+ deny from all
+</Files>
+
+Options All -Indexes
+
+DirectoryIndex index.html index.php /index.php
+
+AddDefaultCharset UTF-8
+
+Header set Content-Language "%{lang}e" env=lang
+
+Header unset ETag
+FileETag None
+
+SetEnv TZ Europe/Paris
+SetEnv SERVER_ADMIN delfin_at_segonquart.net
+SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+
+
+#SSLOptions +StrictRequire
+#SSLRequireSSL
+#SSLRequire %{HTTP_HOST} eq "blograma.fm"
+#ErrorDocument 403 https://blograma.fm
+
+AddType 'application/rdf+xml; charset=UTF-8' .rdf
+AddType 'application/xhtml+xml; charset=UTF-8' .xhtml
+AddType 'application/xhtml+xml; charset=UTF-8' .xhtml.gz
+AddType 'text/html; charset=UTF-8' .html
+AddType 'text/html; charset=UTF-8' .html.gz
+AddType application/octet-stream .rar .chm .bz2 .tgz .msi .pdf .exe
+AddType application/vnd.ms-excel .csv
+
+AddType application/x-pilot .prc .pdb
+AddType application/x-shockwave-flash .swf
+AddType application/xrds+xml .xrdf
+AddType text/plain .ini .sh .bsh .bash .awk .nawk .gawk .csh .var .c .in .h .asc .md5 .sha .sha1
+AddType video/x-flv .flv
+AddType image/x-icon .ico
+AddType image/svg+xml svg svgz
+
+AddType application/octet-stream .rar .pdf .zip
+AddType application/x-httpd-php .php .php3 .php4 .php5
+AddType application/x-httpd-php-source .phps
+
+
+AddHandler cgi-script .cgi .pl
+AddHandler application/x-httpd-php .css
+
+AddEncoding gzip svgz
+
+ExpiresActive On
+ExpiresDefault A604800
+ExpiresByType image/x-icon A2592000
+ExpiresByType application/x-javascript A2592000
+ExpiresByType text/css A2592000
+ExpiresByType text/html A300
+
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/xml
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/x-javascript
+
+<files *.html>
+SetOutputFilter DEFLATE
+</files>
+
+<FilesMatch "\\.(pl|php|cgi|spl|scgi|fcgi)$">
+   ExpiresActive Off
+</FilesMatch>
+
+<FilesMatch "\\.(html|htm|php)$">
+Header set imagetoolbar "no"
+</FilesMatch>
+
+<FilesMatch "\.(html|htm|xml|txt|xsl)$">
+Header set Cache-Control "max-age=6200, must-revalidate"
+</FilesMatch>
+
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|mp3|mp4)$">
+Header set Cache-Control "public"
+Header set Expires "Thu, 15 Apr 2019 20:00:00 GMT"
+Header unset Last-Modified
+</FilesMatch>
+
+<FilesMatch "\.(js|css)$">
+SetOutputFilter DEFLATE
+Header set Expires "Thu, 15 Apr 2019 20:00:00 GMT"
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+ RewriteCond %{SCRIPT_FILENAME} -d [OR]
+ RewriteCond %{SCRIPT_FILENAME} -f
+ RewriteRule "(^|/)\." - [F]
+</IfModule>
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+
+
+SetEnvIfNoCase ^User-Agent$ .*(craftbot|download|extract|stripper|sucker|ninja|clshttp|webspider|leacher|collector|grabber|webpictures) HTTP_SAFE_BADBOT
+SetEnvIfNoCase ^User-Agent$ .*(libwww-perl|aesop_com_spiderman) HTTP_SAFE_BADBOT
+Deny from env=HTTP_SAFE_BADBOT
+
+
+RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|POST|PROPFIND|OPTIONS|PUT)$ [NC]
+RewriteRule .* - [F,NS,L]
+
+RewriteCond %{REQUEST_METHOD} ^TRAC[EK]
+RewriteRule .* - [L,R=405]
+
+RewriteCond %{REQUEST_METHOD} =POST
+RewriteCond %{HTTP_USER_AGENT} ^.*(opera|mozilla|firefox|msie|safari).*$ [NC]
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /.+/trackback/?\ HTTP/ [NC]
+RewriteRule .* - [F,NS,L]
+
+
+SetEnvIfNoCase ^User-Agent$ .*(craftbot|download|extract|stripper|sucker|ninja|clshttp|webspider|leacher|collector|grabber|webpictures) HTTP_SAFE_BADBOT
+SetEnvIfNoCase ^User-Agent$ .*(libwww-perl|aesop_com_spiderman) HTTP_SAFE_BADBOT
+Deny from env=HTTP_SAFE_BADBOT
+SetEnvIfNoCase User-Agent "^BackDoorBot" bad_bot
+SetEnvIfNoCase user-agent "^BlackWidow" bad_bot 
+SetEnvIfNoCase User-Agent "^BotALot" bad_bot
+SetEnvIfNoCase User-Agent "^Cegbfeieh" bad_bot
+SetEnvIfNoCase user-agent "^ChinaClaw" bad_bot 
+SetEnvIfNoCase User-Agent "^CopyRightCheck" bad_bot
+SetEnvIfNoCase user-agent "^Custo" bad_bot 
+SetEnvIfNoCase user-agent "^DISCo" bad_bot 
+SetEnvIfNoCase user-agent "^Download\ Demon" bad_bot 
+SetEnvIfNoCase user-agent "^eCatch" bad_bot 
+SetEnvIfNoCase user-agent "^EirGrabber" bad_bot 
+SetEnvIfNoCase user-agent "^EmailSiphon" bad_bot 
+SetEnvIfNoCase user-agent "^EmailWolf" bad_bot 
+SetEnvIfNoCase user-agent "^Express\ WebPictures" bad_bot 
+SetEnvIfNoCase user-agent "^ExtractorPro" bad_bot 
+SetEnvIfNoCase user-agent "^EyeNetIE" bad_bot 
+SetEnvIfNoCase user-agent "^FlashGet" bad_bot 
+SetEnvIfNoCase user-agent "^GetRight" bad_bot 
+SetEnvIfNoCase user-agent "^GetWeb!" bad_bot 
+SetEnvIfNoCase user-agent "^Go!Zilla" bad_bot 
+SetEnvIfNoCase user-agent "^Go-Ahead-Got-It" bad_bot 
+SetEnvIfNoCase user-agent "^GrabNet" bad_bot 
+SetEnvIfNoCase user-agent "^Grafula" bad_bot 
+SetEnvIfNoCase user-agent "^HMView" bad_bot 
+SetEnvIfNoCase user-agent "HTTrack" bad_bot 
+SetEnvIfNoCase user-agent "^Image\ Stripper" bad_bot 
+SetEnvIfNoCase user-agent "Indy\ Library" [NC,OR] 
+SetEnvIfNoCase user-agent "^InterGET" bad_bot 
+SetEnvIfNoCase user-agent "^Internet\ Ninja" bad_bot 
+SetEnvIfNoCase user-agent "^JetCar" bad_bot 
+SetEnvIfNoCase user-agent "^JOC\ Web\ Spider" bad_bot 
+SetEnvIfNoCase user-agent "^larbin" bad_bot 
+SetEnvIfNoCase user-agent "^LeechFTP" bad_bot 
+SetEnvIfNoCase User-Agent "^libwww-perl" bad_bot
+SetEnvIfNoCase user-agent "^Mass\ Downloader" bad_bot 
+SetEnvIfNoCase user-agent "^MIDown\ tool" bad_bot 
+SetEnvIfNoCase user-agent "^Mister\ PiX" bad_bot 
+SetEnvIfNoCase user-agent "^Navroad" bad_bot 
+SetEnvIfNoCase user-agent "^NearSite" bad_bot 
+SetEnvIfNoCase user-agent "^NetAnts" bad_bot 
+SetEnvIfNoCase user-agent "^NetSpider" bad_bot 
+SetEnvIfNoCase user-agent "^Net\ Vampire" bad_bot 
+SetEnvIfNoCase user-agent "^NetZIP" bad_bot 
+SetEnvIfNoCase user-agent "^Octopus" bad_bot 
+SetEnvIfNoCase user-agent "^Offline\ Explorer" bad_bot 
+SetEnvIfNoCase user-agent "^Offline\ Navigator" bad_bot 
+SetEnvIfNoCase User-Agent "^Openfind" bad_bot
+SetEnvIfNoCase user-agent "^PageGrabber" bad_bot 
+SetEnvIfNoCase user-agent "^Papa\ Foto" bad_bot 
+SetEnvIfNoCase user-agent "^pavuk" bad_bot 
+SetEnvIfNoCase user-agent "^pcBrowser" bad_bot 
+SetEnvIfNoCase user-agent "^RealDownload" bad_bot 
+SetEnvIfNoCase user-agent "^ReGet" bad_bot 
+SetEnvIfNoCase user-agent "^SiteSnagger" bad_bot 
+SetEnvIfNoCase user-agent "^SmartDownload" bad_bot 
+SetEnvIfNoCase User-Agent "^SpankBot" bad_bot
+SetEnvIfNoCase user-agent "^SuperBot" bad_bot 
+SetEnvIfNoCase user-agent "^SuperHTTP" bad_bot 
+SetEnvIfNoCase user-agent "^Surfbot" bad_bot 
+SetEnvIfNoCase user-agent "^tAkeOut" bad_bot 
+SetEnvIfNoCase user-agent "^Teleport\ Pro" bad_bot 
+SetEnvIfNoCase User-Agent "^Titan" bad_bot
+SetEnvIfNoCase user-agent "^VoidEYE" bad_bot 
+SetEnvIfNoCase user-agent "^Web\ Image\ Collector" bad_bot 
+SetEnvIfNoCase user-agent "^Web\ Sucker" bad_bot 
+SetEnvIfNoCase user-agent "^WebAuto" bad_bot 
+SetEnvIfNoCase User-Agent "^WebBandit" bad_bot
+SetEnvIfNoCase user-agent "^WebCopier" bad_bot 
+SetEnvIfNoCase user-agent "^WebFetch" bad_bot 
+SetEnvIfNoCase user-agent "^WebGo\ IS" bad_bot 
+SetEnvIfNoCase user-agent "^WebLeacher" bad_bot 
+SetEnvIfNoCase user-agent "^WebReaper" bad_bot 
+SetEnvIfNoCase user-agent "^WebSauger" bad_bot 
+SetEnvIfNoCase user-agent "^Website\ eXtractor" bad_bot 
+SetEnvIfNoCase user-agent "^Website\ Quester" bad_bot 
+SetEnvIfNoCase User-Agent "^Webster Pro" bad_bot
+SetEnvIfNoCase user-agent "^WebStripper" bad_bot 
+SetEnvIfNoCase user-agent "^WebWhacker" bad_bot 
+SetEnvIfNoCase user-agent "^WebZIP" bad_bot 
+SetEnvIfNoCase user-agent "^Wget" bad_bot 
+SetEnvIfNoCase user-agent "^Widow" bad_bot 
+SetEnvIfNoCase user-agent "^WWWOFFLE" bad_bot 
+SetEnvIfNoCase user-agent "^Xaldon\ WebSpider" bad_bot 
+SetEnvIfNoCase user-agent "^Zeus" bad_bot 
+
+<FilesMatch "(.*)">
+Order Allow,Deny
+Allow from all
+Deny from env=bad_bot
+</FilesMatch>
+
+ServerSignature Off
