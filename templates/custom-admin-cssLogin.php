@@ -133,7 +133,10 @@ box-shadow: inset 0 0 2px rgba(256, 256, 256, 0.75);
 -webkit-box-shadow: inset 0 0 2px rgba(256, 256, 256, 0.75);
 }
 
-.button:active, .submit input:active, .button-secondary:active {
+.button:active, 
+.submit input:active, 
+.button-secondary:active 
+{
 display: block;
 float: right;
 padding: 10px;
@@ -141,7 +144,6 @@ margin-right: 20px;
 background: none;
 border: none;
 cursor: pointer;
-
 font-weight: 300;
 font-size: 18px;
 color: #414848;
@@ -153,24 +155,30 @@ color: #fff !important;
 text-shadow: none!important;
 }
 
-.login #nav a:hover, .login #backtoblog a:hover {
+.login #nav a:hover, 
+.login #backtoblog a:hover 
+{
 color: #96C800 !important;
 text-shadow: none!important;
 }
 
-.login #nav, .login #backtoblog {
+.login #nav, 
+.login #backtoblog
+{
 text-shadow: none!important;
 }
 
-.login form .input .password, .login form .input .pass-icon {
+.login form .input .password, 
+.login form .input .pass-icon 
+{
 margin-top: 25px;
 }
 
-.error-password {
-top: 73px;
-}
-
-.user-icon, .pass-icon, .error-login, .error-password {
+.user-icon, 
+.pass-icon, 
+.error-login, 
+.error-password 
+{
 width: 46px;
 height: 47px;
 display: block;
@@ -186,6 +194,17 @@ border-top-left-radius: 5px;
 border-bottom-left-radius: 5px;
 }
 
+.error-login, 
+.error-password 
+{
+background: url(src/images/error.png) no-repeat scroll center center #171717;
+left: -49px;
+}
+
+.error-password {
+top: 73px;
+}
+
 .user-icon {
 top: 0;
 background: #171717 url(src/images/user-icon.png) no-repeat center;
@@ -196,7 +215,11 @@ top: 48px;
 background: #171717 url(src/images/pass-icon.png) no-repeat center;
 }
 
-.input, .user-icon, .pass-icon, .button, .register {
+.input, 
+.user-icon, 
+.pass-icon, 
+.button, .register 
+{
 transition: all 0.5s;
 -moz-transition: all 0.5s;
 -webkit-transition: all 0.5s;
@@ -242,7 +265,6 @@ box-shadow: inset 0 1px 6px rgba(256, 256, 256, 0.75);
 -webkit-box-shadow: inset 0 1px 6px rgba(256, 256, 256, 0.75);
 }
 
-
 .login form .footer .register {
 display: block;
 float: right;
@@ -267,7 +289,7 @@ bottom: -1px;
 }
 
 .company {
-margin-bottom: 45px;
+margin-bottom: 20px;
 min-width: 600px;
 }
 
@@ -284,15 +306,6 @@ position: relative;
 .inputs {
 background: #FFFFFF;
 padding: 0 30px 15px;
-}
-
-.error-login, .error-password {
-background: url(src/images/error.png) no-repeat scroll center center #171717;
-left: -49px;
-}
-
-.company {
-margin-bottom: 20px;
 }
 
 </style>';
