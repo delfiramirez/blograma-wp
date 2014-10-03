@@ -12,8 +12,6 @@ get_header();
 
 $archive_title=$pagename;
 $pagename     ='Noticias FM';
-?>
-<?php
 $paged        =(get_query_var('paged'))?get_query_var('paged'):1;
 $myquery      =new WP_Query(array(
     'numberposts'   =>-1,
@@ -45,7 +43,7 @@ $myquery      =new WP_Query(array(
      <?php nowell_paging_nav(); ?>
 
     <?php else : ?>
-     <?php get_template_part('no-resultado', 'archive'); ?>
+     <?php get_template_part('templates/no-resultado', 'archive'); ?>
     <?php endif; ?>
 </main>
 <?php get_sidebar(); ?>

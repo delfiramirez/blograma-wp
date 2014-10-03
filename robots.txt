@@ -1,0 +1,11 @@
+
+User-agent: *
+Disallow: /*.gz,wav,fla,psd$
+Disallow: /*.zip$
+Disallow: /*.Zip$
+Disallow: /*.ZIP$
+Disallow: /*.php$
+Disallow: /*.css$
+Disallow: /*.js$
+
+Sitemap: https://blograma.fm/site-map/

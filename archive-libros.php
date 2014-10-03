@@ -1,11 +1,8 @@
 <?php
 get_header();
-?>
-<?php
+
 $archive_title=$pagename;
 $pagename     ='Libros FM';
-?>
-<?php
 $paged        =(get_query_var('paged'))?get_query_var('paged'):1;
 $nyquery      =new WP_Query(array(
     'numberposts'   =>-1,

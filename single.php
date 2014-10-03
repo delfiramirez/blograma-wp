@@ -14,7 +14,6 @@ get_header();
 
      <?php get_template_part('templates/parts/format', get_post_format()); ?>
 
-     <?php //comments_template( '', true );  ?>
 
     <?php endwhile; ?>
 

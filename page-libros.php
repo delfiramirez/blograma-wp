@@ -8,12 +8,9 @@
  * @subpackage BlogramaFM
  */
 get_header();
-?>
-<?php
+
 $archive_title=$pagename;
 $pagename     ='Libros FM';
-?>
-<?php
 $paged        =(get_query_var('paged'))?get_query_var('paged'):1;
 $myquery      =new WP_Query(array(
     'post_type'     =>'libros',
@@ -25,7 +22,6 @@ $myquery      =new WP_Query(array(
 ?>
 
 <main id="primary" class="content-area" role="main" itemprop="mainContentOfPage" itemscope="itemscope" itemtype="http://schema.org/Blog">
-    <!---Libros -->
     <?php get_template_part('templates/parts/hero', 'page'); ?>
     <header class="page-header">
         <h1 class="page-title"><?php echo esc_html($pagename); ?></h1>
