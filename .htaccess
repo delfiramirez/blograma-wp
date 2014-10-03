@@ -1,14 +1,3 @@
-###############################################################################
-# This work is licensed under the Creative Commons Attribution 3.0 License. 
-# To view a copy of this license, visit 
-# http://creativecommons.org/licenses/by/3.0/ or send a letter to 
-# Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 
-# 94105, USA.
-# Must link to this sites to use
-# http://www.segonquart.net, http://www.askapache.com/
-#                    
-###############################################################################
-
 # secure htaccess file
 <Files .htaccess>
  order allow,deny
@@ -56,6 +45,11 @@ AddType application/octet-stream .rar .pdf .zip
 AddType application/x-httpd-php .php .php3 .php4 .php5
 AddType application/x-httpd-php-source .phps
 
+AddType application/vnd.ms-fontobject .eot
+AddType font/ttf .ttf
+AddType font/otf .otf
+AddType font/x-woff .woff
+AddType image/svg+xml .svg
 
 AddHandler cgi-script .cgi .pl
 AddHandler application/x-httpd-php .css
@@ -69,6 +63,12 @@ ExpiresByType application/x-javascript A2592000
 ExpiresByType text/css A2592000
 ExpiresByType text/html A300
 
+ExpiresByType application/vnd.ms-fontobject A300
+ExpiresByType font/ttf A300
+ExpiresByType font/otf A300
+ExpiresByType font/x-woff A300
+ExpiresByType image/svg+xml A300
+
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/html
 AddOutputFilterByType DEFLATE text/xml
@@ -78,6 +78,7 @@ AddOutputFilterByType DEFLATE application/xhtml+xml
 AddOutputFilterByType DEFLATE application/rss+xml
 AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE font/ttf font/otf image/svg+xml
 
 <files *.html>
 SetOutputFilter DEFLATE
@@ -238,3 +239,14 @@ Deny from env=bad_bot
 </FilesMatch>
 
 ServerSignature Off
+
+###############################################################################
+# This work is licensed under the Creative Commons Attribution 3.0 License. 
+# To view a copy of this license, visit 
+# http://creativecommons.org/licenses/by/3.0/ or send a letter to 
+# Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 
+# 94105, USA.
+# Must link to this sites to use, with no special order
+# http://www.segonquart.net, http://www.askapache.com/
+#                    
+###############################################################################
