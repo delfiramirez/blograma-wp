@@ -1,0 +1,25 @@
+
+/* 
+    Created on : 17-May-2014, 14:03:57
+    Author     : Delfi Ramirez <delfin at segonquart.net>
+*/
+
+
+body {margin:0; padding:0; line-height: 1.4em; word-spacing:1px; letter-spacing:0.2px; font: 13px Arial, Helvetica,"Lucida Grande", serif; color: #000;}
+
+#logo, #nav, #sidenav, #advertisements, #commentform, .comments {display:none;}
+
+a:link, a:visited {background: transparent; color:#333; text-decoration:none;}
+a:link[href^="http://"]:after, a[href^="http://"]:visited:after {content: " (" attr(href) ") "; font-size: 11px;}
+a[href^="http://"] {color:#000;}
+@font-face {
+    font-family: 'ecofont_vera_sansregular';
+    src: url('public/assets/fonts/ecofont_vera_sans_regular-webfont.eot');
+    src: url('public/assets/fonts/ecofont_vera_sans_regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('public/assets/fonts/ecofont_vera_sans_regular-webfont.woff') format('woff'),
+         url('public/assets/fonts/ecofont_vera_sans_regular-webfont.ttf') format('truetype'),
+         url('public/assets/fonts/ecofont_vera_sans_regular-webfont.svg#ecofont_vera_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
