@@ -16,7 +16,8 @@ Header unset ETag
 FileETag None
 
 SetEnv TZ Europe/Paris
-SetEnv SERVER_ADMIN delfin_at_segonquart.net
+SetEnv SERVER_ADMIN delfin@segonquart.net
+
 SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
 
 
@@ -24,6 +25,10 @@ SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
 #SSLRequireSSL
 #SSLRequire %{HTTP_HOST} eq "blograma.fm"
 #ErrorDocument 403 https://blograma.fm
+
+
+
+
 
 AddType 'application/rdf+xml; charset=UTF-8' .rdf
 AddType 'application/xhtml+xml; charset=UTF-8' .xhtml
@@ -40,21 +45,15 @@ AddType text/plain .ini .sh .bsh .bash .awk .nawk .gawk .csh .var .c .in .h .asc
 AddType video/x-flv .flv
 AddType image/x-icon .ico
 AddType image/svg+xml svg svgz
-
-AddType application/octet-stream .rar .pdf .zip
 AddType application/x-httpd-php .php .php3 .php4 .php5
 AddType application/x-httpd-php-source .phps
-
-AddType application/vnd.ms-fontobject .eot
-AddType font/ttf .ttf
-AddType font/otf .otf
-AddType font/x-woff .woff
-AddType image/svg+xml .svg
 
 AddHandler cgi-script .cgi .pl
 AddHandler application/x-httpd-php .css
 
 AddEncoding gzip svgz
+
+AddType application/octet-stream .rar .pdf .zip
 
 ExpiresActive On
 ExpiresDefault A604800
@@ -62,12 +61,6 @@ ExpiresByType image/x-icon A2592000
 ExpiresByType application/x-javascript A2592000
 ExpiresByType text/css A2592000
 ExpiresByType text/html A300
-
-ExpiresByType application/vnd.ms-fontobject A300
-ExpiresByType font/ttf A300
-ExpiresByType font/otf A300
-ExpiresByType font/x-woff A300
-ExpiresByType image/svg+xml A300
 
 AddOutputFilterByType DEFLATE text/plain
 AddOutputFilterByType DEFLATE text/html
@@ -78,7 +71,6 @@ AddOutputFilterByType DEFLATE application/xhtml+xml
 AddOutputFilterByType DEFLATE application/rss+xml
 AddOutputFilterByType DEFLATE application/javascript
 AddOutputFilterByType DEFLATE application/x-javascript
-AddOutputFilterByType DEFLATE font/ttf font/otf image/svg+xml
 
 <files *.html>
 SetOutputFilter DEFLATE
@@ -88,18 +80,14 @@ SetOutputFilter DEFLATE
    ExpiresActive Off
 </FilesMatch>
 
-<FilesMatch "\\.(html|htm|php)$">
-Header set imagetoolbar "no"
-</FilesMatch>
-
-<FilesMatch "\.(html|htm|xml|txt|xsl)$">
-Header set Cache-Control "max-age=6200, must-revalidate"
-</FilesMatch>
-
 <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|mp3|mp4)$">
 Header set Cache-Control "public"
 Header set Expires "Thu, 15 Apr 2019 20:00:00 GMT"
 Header unset Last-Modified
+</FilesMatch>
+
+<FilesMatch "\.(html|htm|xml|txt|xsl)$">
+Header set Cache-Control "max-age=6200, must-revalidate"
 </FilesMatch>
 
 <FilesMatch "\.(js|css)$">
@@ -107,23 +95,77 @@ SetOutputFilter DEFLATE
 Header set Expires "Thu, 15 Apr 2019 20:00:00 GMT"
 </FilesMatch>
 
+<FilesMatch "\\.(html|htm|php)$">
+Header set imagetoolbar "no"
+</FilesMatch>
+  <IfModule mod_rewrite.c>
+        RewriteCond %{SCRIPT_FILENAME} -d [OR]
+        RewriteCond %{SCRIPT_FILENAME} -f
+        RewriteRule "(^|/)\." - [F]
+    </IfModule>
+    
+ErrorDocument 401 "Error"
+ErrorDocument 403 "Error"
+
 <IfModule mod_rewrite.c>
- RewriteCond %{SCRIPT_FILENAME} -d [OR]
- RewriteCond %{SCRIPT_FILENAME} -f
- RewriteRule "(^|/)\." - [F]
-</IfModule>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_URI} ^/(stats|failed_auth\.html).*$ [NC]
+RewriteRule . - [L]
+
+</IfModule> 
+
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteCond %{HTTPS} off
-RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
+
+
+RewriteRule ^download/([0-9]+)?/([0-9]+)x([0-9]+)/([^/\.]+) image.php?id=$1&width=$2&height=$3&cropratio=$4&download=1 [L]
+RewriteRule ^file/([0-9]+)?/([0-9]+)x([0-9]+)/([^/\.]+) image.php?id=$1&width=$2&height=$3&cropratio=$4 [L]
+RewriteRule ^previsualizar/([0-9]+)?/([0-9]+)x([0-9]+)/([^/\.]+) wallpaper_preview.php?id=$1&width=$2&height=$3&name=$4 [L]
+RewriteRule ^thumbnail/([0-9]+)?/([0-9]+)x([0-9]+)/([^/\.]+)/([^/\.]+)/([^/\.]+)/([^/]+) image.php?wallpaper_id=$1&width=$2&height=$3&cropratio=$4&align=$5&valign=$6&file=$7 [L]
+RewriteRule ^cat/([0-9]+)?/([^/\.]+)/p([0-9]+) index.php?task=category&id=$1&name=$2&page=$3 [L]
+RewriteRule ^cat/([0-9]+)?/([^/\.]+)/([0-9a-zA-Z?-]+)/p([0-9]+) index.php?task=category&id=$1&name=$2&sortby=$3&page=$4 [L]
+RewriteRule ^cat/([0-9]+)?/([^/\.]+)/([0-9a-zA-Z?-]+)-([0-9]+) index.php?task=category&id=$1&sortby=$3&page=$4 [L]
+RewriteRule ^cat/([0-9]+)?/([^/\.]+) index.php?task=category&id=$1&name=$2 [L]
+RewriteRule ^tag/([^/\.]+)/([0-9a-zA-Z?-]+)/([0-9]+) index.php?task=tag&t=$1&sortby=$2&page=$3 [L]
+RewriteRule ^tag/([^/\.]+) index.php?task=tag&t=$1 [L]
+RewriteRule ^perfil/([0-9]+)?/([^/\.]+) index.php?task=profile&id=$1&name=$2 [L]
+RewriteRule ^perfil/comentarios/([0-9]+)?/([^/\.]+) index.php?task=users_comments&id=$1&name=$2 [L]
+RewriteRule ^pagina/([0-9]+) index.php?task=view_page&id=$1 [L]  
+RewriteRule ^register index.php?task=register [L] 
+RewriteRule ^lost-password index.php?task=lost_pass [L] 
+RewriteRule ^links index.php?task=links [L]
+RewriteRule ^noticias/item/([0-9]+)/([^/\.]+) index.php?task=news&id=$1 [L]
+RewriteRule ^noticias/pagina([0-9]+) index.php?task=news&page=$1 [L]
+RewriteRule ^autores/([^/\.]+)-([^/\.]+)/page([0-9]+)? index.php?task=member_list&sort=$1&order=$2&page=$3 [L]
+RewriteRule ^autores index.php?task=member_list [L]
+RewriteRule ^messages index.php?task=messages [L]
+RewriteRule ^submit index.php?task=submit [L]
+RewriteRule ^buscar/([^/\.]+) index.php?task=search&q=$1 [L]
+RewriteRule ^buscar index.php?task=search [L]
+RewriteRule ^enviar index.php?task=submit [L]
+RewriteRule ^r-([0-9]+)?-([0-9]+)? go.php?id=$1&ref=$2 [L]
+RewriteRule ^r-([0-9]+)? go.php?id=$1 [L]
+RewriteRule ^([^/\.]+)/([0-9]+)/([^/\.]+) index.php?task=view&id=$2&name=$3 [L]
+RewriteRule ^noticias/([^/\.]+) index.php?task=news&name=$1 [L]
+RewriteRule ^perfil/([^/\.]+) index.php?task=profile&name=$1 [L]
+RewriteRule ^noticias index.php?task=news [L]
+RewriteRule ^pagina/([^/\.]+) index.php?task=view_page&name=$1 [L]  
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/\.]+)/([0-9a-zA-Z'?-]+)/([0-9]+) index.php?task=category&name=$1&sortby=$2&page=$3 [L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301]
 </IfModule>
+
 # END WordPress
 
 
@@ -136,7 +178,7 @@ RewriteCond %{REQUEST_METHOD} !^(GET|HEAD|POST|PROPFIND|OPTIONS|PUT)$ [NC]
 RewriteRule .* - [F,NS,L]
 
 RewriteCond %{REQUEST_METHOD} ^TRAC[EK]
-RewriteRule .* - [L,R=405]
+    RewriteRule .* - [L,R=405]
 
 RewriteCond %{REQUEST_METHOD} =POST
 RewriteCond %{HTTP_USER_AGENT} ^.*(opera|mozilla|firefox|msie|safari).*$ [NC]
