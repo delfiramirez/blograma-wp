@@ -143,6 +143,7 @@ a:visited{
 .site-fence:after{
 
 }
+
 .hero-image-description {
 
 }
@@ -176,7 +177,7 @@ article{
     padding:5px;
 }
 
-figure {
+figure{
 
 
 }
@@ -400,7 +401,8 @@ ul#menu-impresum li a:hover{
     text-transform: capitalize;
 }
 
-.gallery-item .gallery-caption, .wp-caption-text{
+.gallery-item .gallery-caption, 
+.wp-caption-text{
     position: absolute;
     overflow: hidden;
     margin: 0px;
